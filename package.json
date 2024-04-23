@@ -2,7 +2,7 @@
   "name": "rickandmorty",
   "version": "0.1.0",
   "private": true,
-   "engines": {
+  "engines": {
     "node": ">=18.17.0",
     "npm": "please-use-yarn"
   },
@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier":"prettier --write ."
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "react": "^18",
