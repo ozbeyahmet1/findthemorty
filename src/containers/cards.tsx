@@ -7,7 +7,8 @@ import { addCharToPersist } from "@/store";
 const CardsContainer = React.forwardRef<HTMLDivElement>((_, ref) => {
   const searchCard = useSelector(addCharToPersist);
   return (
-    <div className="container mx-auto pt-10 pb-28" ref={ref}>
+    // w - [90 %] sm: w - full  container mx - auto sm: py - 5 flex justify - between pb - 5 sm: pb - 0
+    <div className="w-[90%] sm:w-full container mx-auto pt-10 pb-28" ref={ref}>
       <h1 className="text-xl font-semibold mb-4">Search and Find Rick and Morty Charachters</h1>
       <MultipleSelect />
       <h1 className="text-xl font-semibold my-4">Your Favorites</h1>

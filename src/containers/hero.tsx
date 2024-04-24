@@ -12,7 +12,7 @@ interface HeroContainerProps {
 export default function HeroContainer({ func }: HeroContainerProps) {
   return (
     <section className="w-full h-auto border-b-2">
-      <div className="w-[90%] sm:w-full  container mx-auto sm:py-5 flex justify-between pb-5 sm:pb-0">
+      <div className="w-[90%] sm:w-full container mx-auto sm:py-5 flex justify-between pb-5 sm:pb-0 gap-10">
         <div className={`sm:py-20 ${jersey25.className}`}>
           <p className={`text-xl ${montserrat.className} mb-2`}>Step through the portal and find the characters.</p>
           <h1 className="text-5xl sm:text-8xl mb-3 sm:mb-8">All Rick and Morty characters are here</h1>
