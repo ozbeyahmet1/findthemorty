@@ -11,13 +11,13 @@ export default function HeadLayout() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link
         rel="icon"
-        href="https://res.cloudinary.com/droheqpxn/image/upload/v1713917214/Screenshot_2024-04-24_at_03.05.28_gwupbp.png"
+        href="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png"
       />
 
       {/* Open Graph tags */}
       <meta property="og:title" content="Rick and Morty Search | Find your favorite characters!" />
       <meta property="og:description" content="Explore characters from the Rick and Morty universe." />
-      <meta property="og:image" content="/rick-and-morty-og-image.png" />
+      <meta property="og:image" content="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png" />
       <meta property="og:type" content="website" />
 
       {/* Twitter tags */}
@@ -25,7 +25,7 @@ export default function HeadLayout() {
       <meta name="twitter:description" content="Explore characters from the Rick and Morty universe." />
       <meta
         name="twitter:image"
-        content="https://res.cloudinary.com/droheqpxn/image/upload/v1713918653/Screenshot_2024-04-24_at_03.05.28-removebg-preview_pyieib.png"
+        content="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png"
       />
       <meta name="twitter:card" content="summary_large_image" />
     </Head>

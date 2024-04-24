@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Cabin_Sketch } from "next/font/google";
+import Image from "next/image";
 
 const jersey = Cabin_Sketch({
   weight: "700",
@@ -10,7 +10,7 @@ export default function Logo() {
   return (
     <div className="flex items-center gap-2 ">
       <Image
-        src="https://res.cloudinary.com/droheqpxn/image/upload/v1713918653/Screenshot_2024-04-24_at_03.05.28-removebg-preview_pyieib.png"
+        src="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png"
         width={50}
         height={80}
         alt="Logo"
