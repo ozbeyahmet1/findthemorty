@@ -4,8 +4,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import * as React from "react";
-import { sampleData } from "@/helpers/sampleData";
+import axios, { AxiosResponse } from "axios";
+import { Montserrat } from "next/font/google";
+import { useEffect, useState } from "react";
+import { Character } from "@/helpers/interfaces";
 import ResultCard from "./resultCard";
 
 const ITEM_HEIGHT = 48;
@@ -14,26 +16,71 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 7.5 + ITEM_PADDING_TOP,
+      // background: "rgb(238, 188, 183)",
     },
   },
 };
 
-export default function MultipleSelect() {
-  const [personName, setPersonName] = React.useState<string[]>([]);
+/**
+ * Represents a multiple select component for choosing characters.
+ */
+const montserrat = Montserrat({ subsets: ["latin"], weight: "400" });
 
+export default function MultipleSelect() {
+  const [personName, setPersonName] = useState<string[]>([]);
+
+  /**
+   * Handles the change event of the select component.
+   * @param event - The select change event.
+   */
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
       target: { value },
     } = event;
     setPersonName(
-      // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value,
     );
   };
 
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [apiUrl, setApiUrl] = useState("https://rickandmortyapi.com/api/character?page=1");
+  const [info, setInfo] = useState<info>({ count: 0, pages: 0, next: "https://rickandmortyapi.com/api/character?page=2", prev: "" });
+
+  interface info {
+    count: number;
+    pages: number;
+    next: string;
+    prev?: string;
+  }
+
+  useEffect(() => {
+    /**
+     * Fetches the characters from the API.
+     */
+    const fetchCharacters = async () => {
+      try {
+        const response: AxiosResponse<{ results: Character[], info: info; }> = await axios.get(apiUrl);
+        const characterData: Character[] = response.data.results;
+        setInfo(response.data.info);
+        setCharacters((prevCharacters) => [...prevCharacters, ...characterData]);
+      } catch (error) {
+        console.error('Error fetching characters:', error);
+      }
+    };
+    void fetchCharacters();
+  }, [apiUrl]);
+
+  /**
+   * Loads more characters from the API.
+   */
+  function onLoadMore() {
+    setApiUrl(info.next);
+  }
+
+
   return (
     <div>
-      <FormControl className="w-full left-0 ">
+      <FormControl className={`w-full left-0 ${montserrat.className}`}>
         <InputLabel id="demo-multiple-name-label">Characters</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
@@ -45,24 +92,27 @@ export default function MultipleSelect() {
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={value} className={`${!value && "hidden"}`} />
               ))}
             </Box>
           )}
           MenuProps={MenuProps}>
-          {sampleData.map((character) => {
+          {characters.map((character) => {
             return (
               <MenuItem
-                key={character.name}
+                key={character.id}
                 value={character.name}
                 className="border-b-[1px] border-gray-200 border-solid bg-transparent left-0">
                 <ResultCard data={character} />
               </MenuItem>
             );
           })}
-          <div>Load More</div>
+          <MenuItem className={`p-0 bg-gray-400 active:bg-gray-400 text-white hover:bg-gray-600 transition-all duration-300 ${montserrat.className}`}>
+            <button className="w-full h-full  text-lg p-2 bg-gray-400" onClick={onLoadMore}>Load More</button>
+          </MenuItem>
         </Select>
       </FormControl>
     </div>
   );
 }
+
