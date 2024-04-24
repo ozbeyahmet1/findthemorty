@@ -13,6 +13,21 @@ const config: Config = {
     fontFamily: {
       stylish: ["Stylish", "serif"],
     },
+    extend: {
+      keyframes: {
+        fadeInDown: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+      },
+    },
+    animation: {
+      "fade-in-down": "fadeInDown 2s ease-in-out forwards",
+    },
   },
   plugins: [],
 };
