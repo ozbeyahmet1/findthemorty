@@ -22,7 +22,7 @@ export default function ResultCard({ data: { name, location, origin, image, stat
   /**
    * StatusIcon component displays an icon based on the character's status.
    */
-  const StatusIcon = ({ size }: { size: number; }) => {
+  const StatusIcon = ({ size }: { size: number }) => {
     switch (status) {
       case "Alive":
         return <TbHeartbeat color="green" size={size} />;
@@ -38,7 +38,7 @@ export default function ResultCard({ data: { name, location, origin, image, stat
   /**
    * GenderIcon component displays an icon based on the character's gender.
    */
-  const GenderIcon = ({ size }: { size: number; }) => {
+  const GenderIcon = ({ size }: { size: number }) => {
     switch (gender) {
       case "Male":
         return <IoMdMale color="#1E90FF" size={size} />;
@@ -59,11 +59,10 @@ export default function ResultCard({ data: { name, location, origin, image, stat
         <Image src={image} alt="placeholder" width={100} height={100} className="rounded-md w-14 sm:w-24 " />
         <div>
           <p className="text-xl sm:text-2xl font-semibold">{name}</p>
-          <p>
-            {" "}
+          <p className="hidden sm:block">
             <b className="font-medium">Origin:</b> {origin.name}
           </p>
-          <p>
+          <p className="hidden sm:block">
             <b className="font-medium">Living At:</b> {location.name}
           </p>
           <p className="flex gap-2 sm:hidden">
