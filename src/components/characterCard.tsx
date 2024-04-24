@@ -20,16 +20,30 @@ export interface CharacterCardProps {
   data: Pick<Character, "name" | "location" | "image" | "episode">;
 }
 
-export default function CharacterCard({ data: { name, location, image, episode } }: CharacterCardProps) {
+export default function CharacterCard({
+  data: { name, location, image: characterImage, episode },
+}: CharacterCardProps) {
   return (
     <div className="bg-white w-full rounded-md shadow-md">
-      <Image src={image} width={300} height={300} quality={100} alt="character image" className="rounded-t-md w-full" />
+      <Image
+        src={characterImage}
+        width={300}
+        height={300}
+        quality={100}
+        alt="character image"
+        className="rounded-t-md w-full transition-opacity opacity-0 duration-[2s]"
+        onLoadingComplete={(image) => image.classList.remove("opacity-0")}
+      />
       <div className="p-4">
         <h1 className="font-bold text-lg">{name}</h1>
-        <p><b className="font-medium">Located At:</b> {location.name}</p>
-        <p> <b className="font-medium">Played in:</b> {episode.length} episode</p>
+        <p>
+          <b className="font-medium">Located At:</b> {location.name}
+        </p>
+        <p>
+          {" "}
+          <b className="font-medium">Played in:</b> {episode.length} episode
+        </p>
       </div>
     </div>
   );
 }
-
