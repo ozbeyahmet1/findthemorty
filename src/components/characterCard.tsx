@@ -17,16 +17,17 @@ import * as React from "react";
 import { Character } from "@/helpers/interfaces";
 
 export interface CharacterCardProps {
-  data: Pick<Character, "name" | "location" | "origin" | "image" | "status" | "gender">;
+  data: Pick<Character, "name" | "location" | "image" | "episode">;
 }
 
-export default function CharacterCard({ data: { name, location, origin, image, status, gender } }: CharacterCardProps) {
+export default function CharacterCard({ data: { name, location, image, episode } }: CharacterCardProps) {
   return (
     <div className="bg-white w-full rounded-md shadow-md">
-      <Image src={image} width={300} height={300} alt="character image" className="rounded-t-md w-full" />
+      <Image src={image} width={300} height={300} quality={100} alt="character image" className="rounded-t-md w-full" />
       <div className="p-4">
         <h1 className="font-semibold">{name}</h1>
         <p>Located At: {location.name}</p>
+        <p>Played in: {episode.length} episode</p>
       </div>
     </div>
   );
