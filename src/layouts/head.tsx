@@ -17,7 +17,10 @@ export default function HeadLayout() {
       {/* Open Graph tags */}
       <meta property="og:title" content="Rick and Morty Search | Find your favorite characters!" />
       <meta property="og:description" content="Explore characters from the Rick and Morty universe." />
-      <meta property="og:image" content="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png" />
+      <meta
+        property="og:image"
+        content="https://res.cloudinary.com/droheqpxn/image/upload/v1713976518/SeekPng.com_rick-and-morty-png_44144_txzuta.png"
+      />
       <meta property="og:type" content="website" />
 
       {/* Twitter tags */}
