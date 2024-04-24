@@ -1,9 +1,5 @@
-import Image from "next/image";
-import { Inter, Montserrat } from "next/font/google";
-import HomepageView from "@/views/homepage";
 import Template from "@/layouts/template";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
+import HomepageView from "@/views/homepage";
 
 export default function Home() {
   return (

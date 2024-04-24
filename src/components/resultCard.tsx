@@ -2,7 +2,7 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import * as React from "react";
 import { FaSkullCrossbones } from "react-icons/fa6";
-import { IoMdFemale, IoMdMale, IoMdTransgender } from "react-icons/io";
+import { IoMdFemale, IoMdMale } from "react-icons/io";
 import { MdOutlineQuestionMark } from "react-icons/md";
 import { RiGenderlessLine } from "react-icons/ri";
 import { TbHeartbeat } from "react-icons/tb";
@@ -22,7 +22,7 @@ export default function ResultCard({ data: { name, location, origin, image, stat
   /**
    * StatusIcon component displays an icon based on the character's status.
    */
-  const StatusIcon = ({ size }: { size: number }) => {
+  const StatusIcon = ({ size }: { size: number; }) => {
     switch (status) {
       case "Alive":
         return <TbHeartbeat color="green" size={size} />;
@@ -38,7 +38,7 @@ export default function ResultCard({ data: { name, location, origin, image, stat
   /**
    * GenderIcon component displays an icon based on the character's gender.
    */
-  const GenderIcon = ({ size }: { size: number }) => {
+  const GenderIcon = ({ size }: { size: number; }) => {
     switch (gender) {
       case "Male":
         return <IoMdMale color="#1E90FF" size={size} />;
