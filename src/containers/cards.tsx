@@ -14,6 +14,7 @@ export default function CardsContainer() {
       <h1 className="text-xl font-semibold mb-4">Search and Find Rick and Morty Charachters</h1>
       <MultipleSelect />
       <h1 className="text-xl font-semibold my-4">Your Favorites</h1>
+      {searchCard?.characters.length == 0 && <h2>Favorite character not found. Start adding one soon.</h2>}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {searchCard?.characters.map((character) => {
           return <CharacterCard data={character} key={character.name} />;
