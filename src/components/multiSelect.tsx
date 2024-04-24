@@ -7,7 +7,10 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import axios, { AxiosResponse } from "axios";
 import { Montserrat } from "next/font/google";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Character } from "@/helpers/interfaces";
+import { addCharToPersist } from "@/store";
+import { addCharacter, removeCharacter } from "@/store/slices/charactersSlice";
 import ResultCard from "./resultCard";
 
 const ITEM_HEIGHT = 48;
@@ -27,7 +30,9 @@ const MenuProps = {
 const montserrat = Montserrat({ subsets: ["latin"], weight: "400" });
 
 export default function MultipleSelect() {
-  const [personName, setPersonName] = useState<string[]>([]);
+  const charactersNames = useSelector(addCharToPersist).characters.map((character) => character.name);
+  const [personName, setPersonName] = useState<string[]>(charactersNames);
+  const dispatch = useDispatch();
 
   /**
    * Handles the change event of the select component.
@@ -37,14 +42,17 @@ export default function MultipleSelect() {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      typeof value === "string" ? value.split(",") : value,
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
 
   const [characters, setCharacters] = useState<Character[]>([]);
   const [apiUrl, setApiUrl] = useState("https://rickandmortyapi.com/api/character?page=1");
-  const [info, setInfo] = useState<info>({ count: 0, pages: 0, next: "https://rickandmortyapi.com/api/character?page=2", prev: "" });
+  const [info, setInfo] = useState<info>({
+    count: 0,
+    pages: 0,
+    next: "https://rickandmortyapi.com/api/character?page=2",
+    prev: "",
+  });
 
   interface info {
     count: number;
@@ -59,12 +67,12 @@ export default function MultipleSelect() {
      */
     const fetchCharacters = async () => {
       try {
-        const response: AxiosResponse<{ results: Character[], info: info; }> = await axios.get(apiUrl);
+        const response: AxiosResponse<{ results: Character[]; info: info }> = await axios.get(apiUrl);
         const characterData: Character[] = response.data.results;
         setInfo(response.data.info);
         setCharacters((prevCharacters) => [...prevCharacters, ...characterData]);
       } catch (error) {
-        console.error('Error fetching characters:', error);
+        console.error("Error fetching characters:", error);
       }
     };
     void fetchCharacters();
@@ -76,8 +84,13 @@ export default function MultipleSelect() {
   function onLoadMore() {
     setApiUrl(info.next);
   }
-
-
+  function handleMenuItemClick(character: Character) {
+    if (charactersNames.includes(character.name)) {
+      dispatch(removeCharacter(character.name));
+    } else {
+      dispatch(addCharacter(character));
+    }
+  }
   return (
     <div>
       <FormControl className={`w-full left-0 ${montserrat.className}`}>
@@ -91,9 +104,7 @@ export default function MultipleSelect() {
           input={<OutlinedInput label="Characters" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} className={`${!value && "hidden"}`} />
-              ))}
+              {selected.map((value) => value !== undefined && <Chip key={value} label={value} />)}
             </Box>
           )}
           MenuProps={MenuProps}>
@@ -102,17 +113,19 @@ export default function MultipleSelect() {
               <MenuItem
                 key={character.id}
                 value={character.name}
+                onClick={() => handleMenuItemClick(character)}
                 className="border-b-[1px] border-gray-200 border-solid bg-transparent left-0">
                 <ResultCard data={character} />
               </MenuItem>
             );
           })}
-          <MenuItem className={`p-0 bg-gray-400 active:bg-gray-400 text-white hover:bg-gray-600 transition-all duration-300 ${montserrat.className}`}>
-            <button className="w-full h-full  text-lg p-2 bg-gray-400" onClick={onLoadMore}>Load More</button>
+          <MenuItem
+            className={`p-0 bg-gray-400 active:bg-gray-400 text-white hover:bg-gray-600 transition-all duration-300 ${montserrat.className}`}
+            onClick={onLoadMore}>
+            <button className="w-full h-full  text-lg p-2 bg-gray-400">Load More</button>
           </MenuItem>
         </Select>
       </FormControl>
     </div>
   );
 }
-
