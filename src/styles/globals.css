@@ -24,3 +24,9 @@ body {
 main {
   overflow-x: hidden;
 }
+
+@media screen and (max-width: 600px) {
+  .MuiPaper-elevation8 {
+    left: 0 !important;
+  }
+}
