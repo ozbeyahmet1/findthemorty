@@ -15,9 +15,9 @@ export default function Logo() {
         height={80}
         alt="Logo"
       />
-      <div className={`${jersey.className} text-xl leading-6 h-[40px] `}>
-        <p>FIND</p>
-        <p>MORTY</p>
+      <div className={`leading-[0] h-[40px] `}>
+        <p className={`${jersey.className} text-xl`}>FIND MORTY</p>
+        <p className="text-xs">Step into the portal</p>
       </div>
     </div>
   );
